@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import Index from '../components/Index.vue'
 import Table from '../components/Table.vue'
 import PaginaInicial from '../views/PaginaInicial.vue'
+import NavBar from '../components/NavBar.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +27,11 @@ const router = createRouter({
       path: '/index',
       name: 'index',
       component: Index
+    },
+    {
+      path: '/navbar',
+      name: 'navbar',
+      component: NavBar
     },
     {
       path: '/about',
