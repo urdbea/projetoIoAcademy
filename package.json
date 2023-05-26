@@ -11,7 +11,8 @@
     "bootstrap": "^5.2.3",
     "bootstrap-vue": "^2.23.1",
     "vue": "^3.3.2",
-    "vue-router": "^4.2.0"
+    "vue-router": "^4.2.0",
+    "vue-sidebar-menu-akahon": "^1.0.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",
