@@ -3,10 +3,11 @@
     <div class="navbar-item" @click="navigate('home')">
       Home
     </div>
-    <div class="navbar-item" @click="navigate('about')">
+    <div class="navbar-item" @click="navigate('feed')">
       About
     </div>
     <div class="navbar-item" @click="navigate('contact')">
+      
       Contact
     </div>
   

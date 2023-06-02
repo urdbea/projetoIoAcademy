@@ -18,14 +18,16 @@
     </form>
 
     <div class="submissions" id="cartoesSubms">
-      <div v-for="(submission, index) in formSubmissions" :key="index" class="card">
-        <div class="card-header">
-          Submission {{ index + 1 }} 
-        </div>
-        <div class="card-body">
-          <p><strong>Name:</strong> {{ submission.name }}</p>
-          <p><strong>Email:</strong> {{ submission.email }}</p>
-          <p><strong>Ideia de Projeto:</strong> {{ submission.ideaProjeto }}</p>
+      <div class="card-grid">
+        <div v-for="(submission, index) in formSubmissions" :key="index" class="card">
+          <div class="card-header">
+            Submission {{ index + 1 }} 
+          </div>
+          <div class="card-body">
+            <p><strong>Name:</strong> {{ submission.name }}</p>
+            <p><strong>Email:</strong> {{ submission.email }}</p>
+            <p><strong>Ideia de Projeto:</strong> {{ submission.ideaProjeto }}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -69,7 +71,20 @@ export default {
 
 <style>
 #cartoesSubms{
-  margin-bottom: 200px;
+  font-size: 10px;
+height: fit-content;
+width: fit-content;
 }
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  grid-gap: 20px; 
+}
+
+.card {
+  /* Estilos do seu card */
+}
+
 
 </style>
