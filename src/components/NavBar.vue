@@ -7,13 +7,9 @@
       About
     </div>
     <div class="navbar-item" @click="navigate('contact')">
-      
       Contact
     </div>
-  
   </div>
-
-
 </template>
 
 <script>
@@ -31,7 +27,7 @@ export default {
   },
   methods: {
     navigate(route) {
-      this.$router.push(`/${route}`);
+      this.$router.push({ name: route });
     },
   }
 };
@@ -59,5 +55,4 @@ export default {
 .navbar-item:hover {
   background-color: #ddd;
 }
-
 </style>

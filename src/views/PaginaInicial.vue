@@ -5,8 +5,7 @@ import NavBar from '../components/NavBar.vue'
 
 <template>
   <main>
-    <h1>tabela: </h1>
-    <Table />
-    <NavBar/>
+<Table/>
+<NavBar/>
   </main>
 </template>

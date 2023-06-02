@@ -1,14 +1,13 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import NavBar from './components/NavBar.vue'
-import Table from './components/Table.vue'
 import PaginaInicial  from './views/PaginaInicial.vue';
+import NavBar from './components/NavBar.vue'
 </script>
 
 <template>
-  <Table/>
+
+  <RouterView /> 
   <NavBar/>
-  <!--<RouterView /> -->
 </template>
 
 <style scoped>
