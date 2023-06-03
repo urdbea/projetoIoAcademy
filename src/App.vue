@@ -2,7 +2,7 @@
   <div id="app">
     <template v-if="isLoggedIn">
       <RouterView /> 
-      <NavBar :isLoggedIn="isLoggedIn" @logout="handleLogout" /> 
+      <NavBar :isLoggedIn="isLoggedIn" @logout="handleLogout"/> 
     </template>
     <template v-else>
       <Login @login-success="handleLoginSuccess"></Login>
@@ -34,5 +34,13 @@ function handleLogout() {
 <style scoped>
 .container {
   color: green;
+
+
 }
+.body{
+  color:red;
+}
+
+
+
 </style>

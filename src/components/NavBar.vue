@@ -1,12 +1,12 @@
 <template>
   <div class="navbar" :class="{ 'navbar-fixed': isNavbarFixed }">
-    <div class="navbar-item" @click="navigate('home')">
+    <div class="navbar-item" @click="navigate('home')" :class="{ active: isActive('home') }">
       <font-awesome-icon class="icon" icon="home" />
     </div>
-    <div class="navbar-item" @click="navigate('feed')">
+    <div class="navbar-item" @click="navigate('feed')" :class="{ active: isActive('feed') }">
       <font-awesome-icon class="icon" icon="info-circle" />
     </div>
-    <div class="navbar-item" @click="navigate('feedUser')">
+    <div class="navbar-item" @click="navigate('feedUser')" :class="{ active: isActive('feedUser') }">
       <font-awesome-icon class="icon" icon="envelope" />
     </div>
     <div v-if="isLoggedIn" class="navbar-item" @click="handleLogout">
@@ -14,8 +14,6 @@
     </div>
   </div>
 </template>
-
-
 
 <script>
 export default {
@@ -27,7 +25,7 @@ export default {
   },
   data() {
     return {
-      isNavbarFixed: false
+      isNavbarFixed: false,
     };
   },
   mounted() {
@@ -42,8 +40,11 @@ export default {
     },
     handleLogout() {
       this.$emit('logout');
-    }
-  }
+    },
+    isActive(route) {
+      return this.$route.name === route;
+    },
+  },
 };
 </script>
 
@@ -52,27 +53,26 @@ export default {
   justify-content: space-between;
   position: fixed;
   width: 100%;
-  background-color: #f0f0f0;
   margin-top: 100% !important;
   z-index: 999;
   position: fixed !important;
   bottom: 0;
+  background-color: #FFC8DD;
 }
 
 .navbar-item {
   cursor: pointer;
   padding: 5px 10px;
-  color: #333;
   font-weight: bold;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  
+  color: #545454;
 }
 
-.navbar-item:hover {
-  color:   #f3954f;
+.navbar-item.active {
+  color: #FF5D8F;
 }
 
 .navbar-item .icon {
