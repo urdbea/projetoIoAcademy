@@ -9,11 +9,20 @@
     <div class="navbar-item" @click="navigate('contact')">
       Contact
     </div>
+    <div v-if="isLoggedIn" class="navbar-item" @click="handleLogout">
+      Logout
+    </div>
   </div>
 </template>
 
 <script>
 export default {
+  props: {
+    isLoggedIn: {
+      type: Boolean,
+      required: true,
+    },
+  },
   data() {
     return {
       isNavbarFixed: false
@@ -29,6 +38,9 @@ export default {
     navigate(route) {
       this.$router.push({ name: route });
     },
+    handleLogout() {
+      this.$emit('logout');
+    }
   }
 };
 </script>

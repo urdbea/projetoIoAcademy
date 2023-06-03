@@ -14,3 +14,17 @@ app.use(router)
 
 app.mount('#app')
 
+const dadosUser = [
+    {
+      username: 'bia',
+      password: '123',
+    },
+    {
+      username: 'lili',
+      password: '123',
+    },
+  ];
+  
+  localStorage.setItem('users', JSON.stringify(dadosUser));
+  
+

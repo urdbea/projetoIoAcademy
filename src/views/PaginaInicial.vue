@@ -1,11 +1,11 @@
 <script setup>
-import Table from '../components/Table.vue'
-import NavBar from '../components/NavBar.vue'
+
+import Forms from '../components/Forms.vue'
 </script>
 
 <template>
   <main>
-<Table/>
-<NavBar/>
+<Forms/>
+
   </main>
 </template>
