@@ -62,16 +62,16 @@ export default {
 
 .login-page {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
-  vertical-align: bottom;
+  height: 100vh; 
 }
 
 
 .form-group {
   margin-bottom: 10px;
-  vertical-align: bottom;
+
 }
 
 label {
@@ -137,7 +137,7 @@ button[type="submit"]:focus {
 #tituloLogin{
   align-items: center;
   color: #FF5D8F;
-  margin-top: 60%;
+  margin-top: 00%;
   font-family: 'Work Sans', sans-serif;
 }
 

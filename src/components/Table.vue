@@ -91,12 +91,11 @@ export default {
   display: flex;
   flex-direction: column; /* Change to column layout */
   padding: 200px;
-
   max-width: 800px;
   box-sizing: border-box;
   grid-gap: 20px;
   margin-top: 40px;
-  margin-bottom: 200px;
+
 }
 
 
@@ -124,6 +123,8 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #FFFBF0;
+  margin-bottom: 1000px;
 }
 
 #cartoesForms{
