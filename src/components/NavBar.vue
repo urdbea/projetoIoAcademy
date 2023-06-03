@@ -1,19 +1,21 @@
 <template>
   <div class="navbar" :class="{ 'navbar-fixed': isNavbarFixed }">
     <div class="navbar-item" @click="navigate('home')">
-      Home
+      <font-awesome-icon class="icon" icon="home" />
     </div>
     <div class="navbar-item" @click="navigate('feed')">
-      About
+      <font-awesome-icon class="icon" icon="info-circle" />
     </div>
-    <div class="navbar-item" @click="navigate('contact')">
-      Contact
+    <div class="navbar-item" @click="navigate('feedUser')">
+      <font-awesome-icon class="icon" icon="envelope" />
     </div>
     <div v-if="isLoggedIn" class="navbar-item" @click="handleLogout">
-      Logout
+      <font-awesome-icon class="icon" icon="sign-out-alt" />
     </div>
   </div>
 </template>
+
+
 
 <script>
 export default {
@@ -62,9 +64,24 @@ export default {
   padding: 5px 10px;
   color: #333;
   font-weight: bold;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
 }
 
 .navbar-item:hover {
-  background-color: #ddd;
+  color:   #f3954f;
 }
+
+.navbar-item .icon {
+  font-size: 24px; /* Adjust the size as needed */
+  margin-bottom: 5px; /* Add some spacing below the icon */
+}
+
+
+
 </style>
+
+
