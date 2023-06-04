@@ -1,7 +1,7 @@
 <template>
   <div class="page-containerTable">
     <div class="submissions" id="cartoesSubms">
-      <h1>Projetos sugeridos</h1>
+      <p id="tituloTable">Projetos sugeridos</p>
       <div class="card-grid">
         <div v-for="(submission, index) in formSubmissions" :key="index" class="card" id="cartoesForms">
           <div class="card-header">
@@ -80,6 +80,18 @@ export default {
 </script>
 
 <style>
+
+
+#tituloTable {
+
+  text-align: center;
+  color: #FF5D8F;
+font-weight: bold;
+  font-family: 'Work Sans', sans-serif;
+  padding-top: 10%;
+  font-size: x-large;
+}
+
 #cartoesSubms {
   font-size: 10px;
   height: fit-content;
@@ -94,8 +106,6 @@ export default {
   max-width: 800px;
   box-sizing: border-box;
   grid-gap: 20px;
-  margin-top: 40px;
-
 }
 
 
@@ -122,9 +132,9 @@ h1 {
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
-  background-color: #FFFBF0;
-  margin-bottom: 1000px;
+   background-color: #FFFBF0;
+   align-items: flex-start; 
+  padding-bottom: 1000px;
 }
 
 #cartoesForms{
@@ -135,8 +145,5 @@ h1 {
   margin-bottom: 20px;
   border: 2px solid #FF5D8F; 
 }
-
-
-
 
 </style>

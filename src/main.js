@@ -6,7 +6,9 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faHome, faInfoCircle, faEnvelope, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faInfoCircle, faEnvelope, faSignOutAlt, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+
+
 
 // Rest of your code
 
@@ -17,7 +19,7 @@ app.use(router)
 
 
 
-  library.add(faHome, faInfoCircle, faEnvelope, faSignOutAlt);
+  library.add(faHome, faInfoCircle, faEnvelope, faSignOutAlt, faTrashCan);
   
   app.component('font-awesome-icon', FontAwesomeIcon);
 
