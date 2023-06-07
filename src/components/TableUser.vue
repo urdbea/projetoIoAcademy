@@ -3,18 +3,20 @@
     <p id="tituloTableUser">Os teus projetos sugeridos</p>
     <div class="submissions" id="cartoesSubms">
       <div class="card-grid">
-        <div v-for="(submission, index) in filteredSubmissions" :key="index" class="card" id="cartoesForms">
+        <div v-for="(projeto, index) in projetos" :key="index" class="card" id="cartoesForms">
           <div class="card-header">
             Submission {{ index + 1 }}
-            <button @click="deleteSubmission(index)" class="delete-button">Delete</button>
-            <font-awesome-icon class="icon" icon="trash-can" />
-
           </div>
           <div class="card-body">
-            <p><strong>Name:</strong> {{ submission.name }}</p>
-            <p><strong>Email:</strong> {{ submission.email }}</p>
-            <p><strong>Categoria:</strong> {{ submission.categoria }}</p>
-            <p><strong>Ideia de Projeto:</strong> {{ submission.ideaProjeto }}</p>
+            <p id="nomeUser"><strong>Name:</strong> {{ projeto.attributes.users_permissions_user.data.attributes.username }}</p>
+            <p id="emailUser"><strong>Email:</strong> {{ projeto.attributes.email }}</p>
+            <p id="ideiaProjeto"><strong>Ideia de Projeto:</strong> {{ projeto.attributes.ideia }}</p>
+            <p><strong>Categorias:</strong></p>
+            <ul>
+              <li v-for="categoria in projeto.attributes.categorias.data" :key="categoria.id">
+                {{ categoria.attributes.nome }}
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -26,53 +28,33 @@
 export default {
   data() {
     return {
-      formData: {
-        name: '',
-        email: '',
-        categoria: '', // Add categoria to formData
-        ideaProjeto: '',
-      },
-      formSubmissions: [], // Array to store all form submissions
+      activeUser: '',
+      projetos:[]
     };
   },
-  created() {
-    // Load form submissions from localStorage on component initialization
-    this.formSubmissions = JSON.parse(localStorage.getItem('formSubmissions')) || [];
-  },
-  computed: {
-    filteredSubmissions() {
-      const utilizadorAtivo = localStorage.getItem('utilizadorAtivo');
-      if (utilizadorAtivo) {
-        return this.formSubmissions.filter(submission => submission.name === utilizadorAtivo);
-      }
-      return [];
-    }
+   created() {
+    this.activeUser = localStorage.getItem('utilizadorAtivo');
+    this.fetchData();
   },
   methods: {
-    submitForm() {
-      // Add the current form data to the formSubmissions array
-      this.formSubmissions.push(this.formData);
-
-      // Store the updated formSubmissions array in localStorage
-      localStorage.setItem('formSubmissions', JSON.stringify(this.formSubmissions));
-
-      // Clear the form data
-      this.formData.name = '';
-      this.formData.email = '';
-      this.formData.categoria = ''; // Clear categoria
-      this.formData.ideaProjeto = '';
+    fetchData() {
+      fetch('http://127.0.0.1:1337/api/projetos?populate=*')
+        .then(response => response.json())
+        .then(data => {
+          this.projetos = data.data.filter(projeto => projeto.attributes.users_permissions_user.data.attributes.username === this.activeUser);
+        })
+        .catch(error => {
+          console.error(error);
+        });
     },
-    deleteSubmission(index) {
-      // Remove the submission at the specified index from the formSubmissions array
-      this.formSubmissions.splice(index, 1);
-
-      // Update the formSubmissions array in localStorage
-      localStorage.setItem('formSubmissions', JSON.stringify(this.formSubmissions));
-    }
-  },
-};
+    mounted() {
+    this.fetchData();
+  }
+  }
+}
 </script>
-  
+
+
 <style>
 #cartoesSubms {
   font-size: 10px;

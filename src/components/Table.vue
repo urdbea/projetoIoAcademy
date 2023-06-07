@@ -3,21 +3,22 @@
     <div class="submissions" id="cartoesSubms">
       <p id="tituloTable">Projetos sugeridos</p>
       <div class="card-grid">
-        <div v-for="(submission, index) in formSubmissions" :key="index" class="card" id="cartoesForms">
+        <div v-for="(projeto, index) in projetos" :key="index" class="card" id="cartoesForms">
           <div class="card-header">
             Submission {{ index + 1 }}
           </div>
           <div class="card-body">
-            <p id="nomeUser"><strong>Name:</strong> {{ submission.name }}</p>
-            <p id="emailUser"><strong>Email:</strong> {{ submission.email }}</p>
-            <p id="categoriaProjeto"><strong>Categoria:</strong> {{ submission.categoria }}</p>
-            <p id="ideiaProjeto"><strong>Ideia de Projeto:</strong> {{ submission.ideaProjeto }}</p>
+            <p id="nomeUser"><strong>Name:</strong> {{ projeto.attributes.users_permissions_user.data.attributes.username }}</p>
+            <p id="emailUser"><strong>Email:</strong> {{ projeto.attributes.email }}</p>
+            <p id="ideiaProjeto"><strong>Ideia de Projeto:</strong> {{ projeto.attributes.ideia }}</p>
+            <p><strong>Categorias:</strong></p>
+            <ul><li v-for="categoria in projeto.attributes.categorias.data" :key="categoria.id">{{ categoria.attributes.nome }}</li>            </ul>
           </div>
           <div class="card-footer">
             <button @click="likeSubmission(index)">Like</button>
-            <span>Likes: {{ submission.likes }}</span>
+            <span>Likes: {{ projeto.likes }}</span>
             <button @click="dislikeSubmission(index)">Dislike</button>
-            <span>Dislikes: {{ submission.dislikes }}</span>
+            <span>Dislikes: {{ projeto.dislikes }}</span>
           </div>
         </div>
       </div>
@@ -29,55 +30,28 @@
 export default {
   data() {
     return {
-      formData: {
-        name: '',
-        email: '',
-        categoria: '', 
-        ideaProjeto: '',
-      },
-      formSubmissions: [], 
+      projetos: []
     };
   },
-  created() {
-    // Load form submissions from localStorage on component initialization
-    this.formSubmissions = JSON.parse(localStorage.getItem('formSubmissions')) || [];
-  },
   methods: {
-    submitForm() {
-      // Add the current form data to the formSubmissions array
-      const newSubmission = {
-        ...this.formData,
-        likes: 0,
-        dislikes: 0,
-      };
-      this.formSubmissions.push(newSubmission);
-
-      // Store the updated formSubmissions array in localStorage
-      localStorage.setItem('formSubmissions', JSON.stringify(this.formSubmissions));
-
-      // Clear the form data
-      this.formData.name = '';
-      this.formData.email = '';
-      this.formData.categoria = ''; // Clear categoria
-      this.formData.ideaProjeto = '';
-      
-      // Update the formSubmissions array from localStorage
-      this.formSubmissions = JSON.parse(localStorage.getItem('formSubmissions')) || [];
-    },
-    likeSubmission(index) {
-      this.formSubmissions[index].likes++;
-      this.updateLocalStorage();
-    },
-    dislikeSubmission(index) {
-      this.formSubmissions[index].dislikes++;
-      this.updateLocalStorage();
-    },
-    updateLocalStorage() {
-      localStorage.setItem('formSubmissions', JSON.stringify(this.formSubmissions));
-    },
+    fetchData() {
+      fetch('http://127.0.0.1:1337/api/projetos?populate=*')
+        .then(response => response.json())
+        .then(data => {
+          this.projetos = data.data;
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
   },
+  mounted() {
+    this.fetchData();
+  }
 };
 </script>
+
+
 
 <style>
 

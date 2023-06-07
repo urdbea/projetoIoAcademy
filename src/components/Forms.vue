@@ -16,17 +16,15 @@
           <input type="text" class="form-control" id="ideia" v-model="formData.ideaProjeto" required>
         </div>
         <div class="form-group">
-          <label for="categoria">Categoria:</label>
-          <select id="categoria" class="form-control" v-model="formData.categoria" required>
-            <option value="">Selecione uma opção</option>
-            <option value="educação">Educação</option>
-            <option value="arte">Arte</option>
-            <option value="ciência">Ciência</option>
-            <option value="tecnologia">Tecnologia</option>
-            <option value="desporto">Desporto</option>
-            <option value="outros">Outros</option>
+          <label for="categoria">Categoria</label>
+          <select class="form-control" id="categoria" v-model="formData.categoria" required>
+            <option value="">Seleciona uma Categoria</option>
+            <option v-for="categoria in projeto.attributes.categorias.data" :key="categoria.id">
+              {{ categoria.attributes.nome }}</option>
           </select>
         </div>
+
+
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
@@ -49,20 +47,17 @@ export default {
         ideaProjeto: '',
         categoria: ''
       },
-      formSubmissions: [] // Array to store all form submissions
+      formSubmissions: [] 
     };
   },
   created() {
-    // Load form submissions from localStorage on component initialization
     this.formSubmissions = JSON.parse(localStorage.getItem('formSubmissions')) || [];
 
-    // Set the name field to the value of the "utilizadorAtivo" key from localStorage
     const utilizadorAtivo = localStorage.getItem('utilizadorAtivo');
     if (utilizadorAtivo) {
       this.formData.name = utilizadorAtivo;
     }
 
-    // Set the categoria field to the value of the "formDatacategoria" key from localStorage
     const savedcategoria = localStorage.getItem('formDatacategoria');
     if (savedcategoria) {
       this.formData.categoria = savedcategoria;
@@ -70,21 +65,31 @@ export default {
   },
   methods: {
     submitForm() {
-      // Add the current form data to the formSubmissions array
       this.formSubmissions.push(this.formData);
 
-      // Store the updated formSubmissions array in localStorage
       localStorage.setItem('formSubmissions', JSON.stringify(this.formSubmissions));
 
-      // Save the categoria value in localStorage
       localStorage.setItem('formDatacategoria', this.formData.categoria);
 
-      // Clear the form data
       this.formData.name = '';
       this.formData.email = '';
       this.formData.ideaProjeto = '';
       this.formData.categoria = '';
-    }
+    },
+    fetchData() {
+      fetch('http://127.0.0.1:1337/api/projetos?populate=*')
+        .then(response => response.json())
+        .then(data => {
+          this.projetos = data.data.filter(projeto => projeto.attributes.users_permissions_user.data.attributes.username === this.activeUser);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
+    mounted() {
+    this.fetchData();
+  }
+
   }
 };
 </script>
