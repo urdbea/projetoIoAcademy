@@ -8,10 +8,10 @@
             Submission {{ index + 1 }}
           </div>
           <div class="card-body">
-            <p><strong>Name:</strong> {{ submission.name }}</p>
-            <p><strong>Email:</strong> {{ submission.email }}</p>
-            <p><strong>Categoria:</strong> {{ submission.categoria }}</p>
-            <p><strong>Ideia de Projeto:</strong> {{ submission.ideaProjeto }}</p>
+            <p id="nomeUser"><strong>Name:</strong> {{ submission.name }}</p>
+            <p id="emailUser"><strong>Email:</strong> {{ submission.email }}</p>
+            <p id="categoriaProjeto"><strong>Categoria:</strong> {{ submission.categoria }}</p>
+            <p id="ideiaProjeto"><strong>Ideia de Projeto:</strong> {{ submission.ideaProjeto }}</p>
           </div>
           <div class="card-footer">
             <button @click="likeSubmission(index)">Like</button>
@@ -32,10 +32,10 @@ export default {
       formData: {
         name: '',
         email: '',
-        categoria: '', // Add categoria to formData
+        categoria: '', 
         ideaProjeto: '',
       },
-      formSubmissions: [], // Array to store all form submissions
+      formSubmissions: [], 
     };
   },
   created() {
@@ -147,3 +147,7 @@ h1 {
 }
 
 </style>
+
+
+
+
