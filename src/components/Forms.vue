@@ -17,14 +17,14 @@
         </div>
         <div class="form-group">
           <label for="categoria">Categoria</label>
-          <select class="form-control" id="categoria" v-model="formData.categoria" required>
-            <option value="">Seleciona uma Categoria</option>
-            <option v-for="categoria in projeto.attributes.categorias.data" :key="categoria.id">
-              {{ categoria.attributes.nome }}</option>
-          </select>
+          <div class="checkbox-list">
+            <label v-for="categoria in categorias" :key="categoria.id">
+              <input type="checkbox" v-model="formData.categorias" :value="categoria.id">
+              {{ categoria.attributes.nome }}
+            </label>
+          </div>
         </div>
-
-
+        
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
@@ -45,9 +45,10 @@ export default {
         name: '',
         email: '',
         ideaProjeto: '',
-        categoria: ''
+        categorias: []  
       },
-      formSubmissions: [] 
+      formSubmissions: [],
+      categorias: []
     };
   },
   created() {
@@ -58,38 +59,49 @@ export default {
       this.formData.name = utilizadorAtivo;
     }
 
-    const savedcategoria = localStorage.getItem('formDatacategoria');
-    if (savedcategoria) {
-      this.formData.categoria = savedcategoria;
-    }
+    this.fetchCategorias();
   },
   methods: {
     submitForm() {
-      this.formSubmissions.push(this.formData);
+      const projectData = {
+        ideia: this.formData.ideaProjeto,
+        email: this.formData.email,
+        categorias: this.formData.categorias
+      };
 
-      localStorage.setItem('formSubmissions', JSON.stringify(this.formSubmissions));
-
-      localStorage.setItem('formDatacategoria', this.formData.categoria);
-
-      this.formData.name = '';
-      this.formData.email = '';
-      this.formData.ideaProjeto = '';
-      this.formData.categoria = '';
-    },
-    fetchData() {
-      fetch('http://127.0.0.1:1337/api/projetos?populate=*')
+      fetch('http://127.0.0.1:1337/api/projetos', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ data: projectData })
+      })
         .then(response => response.json())
         .then(data => {
-          this.projetos = data.data.filter(projeto => projeto.attributes.users_permissions_user.data.attributes.username === this.activeUser);
+          // Handle the API response if needed
+          console.log(data);
         })
         .catch(error => {
           console.error(error);
         });
-    },
-    mounted() {
-    this.fetchData();
-  }
 
+      // Reset form data
+      this.formData.name = '';
+      this.formData.email = '';
+      this.formData.ideaProjeto = '';
+      this.formData.categorias = [];
+    },
+
+    fetchCategorias() {
+      fetch('http://127.0.0.1:1337/api/categorias')
+        .then(response => response.json())
+        .then(data => {
+          this.categorias = data.data;
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
   }
 };
 </script>
