@@ -1,20 +1,20 @@
 <template>
   <div class="login-page">
-  <h1 id="tituloLogin">Login</h1>
-  <form class="login-form" @submit="submitForm">
-    <div class="form-group">
-      <label for="username">Username:</label>
-      <input type="text" id="username" v-model="username" required>
-    </div>
+    <h1 id="tituloLogin">Login</h1>
+    <form class="login-form" @submit="submitForm">
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" v-model="username" required>
+      </div>
 
-    <div class="form-group">
-      <label for="password">Password:</label>
-      <input type="password" id="password" v-model="password" required>
-    </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" v-model="password" required>
+      </div>
 
-    <button type="submit">Login</button>
-  </form>
-</div>
+      <button type="submit">Login</button>
+    </form>
+  </div>
 </template>
 
 <script>
@@ -29,28 +29,21 @@ export default {
     submitForm(event) {
       event.preventDefault();
 
-      // Retrieve user data from localStorage
       const dadosUser = JSON.parse(localStorage.getItem('users'));
       if (!dadosUser) {
         console.error('User data not found in localStorage');
         return;
       }
 
-      // Check if credentials match any user in the user data
       const matchingUser = dadosUser.find(
         (user) =>
           user.username === this.username && user.password === this.password
       );
-
       if (matchingUser) {
-        // Save the active user to localStorage
         localStorage.setItem('utilizadorAtivo', matchingUser.username);
-
         this.$emit('login-success');
-        // Perform any desired actions upon successful login
       } else {
         alert('Invalid username or password');
-        // Perform any desired actions upon failed login
       }
     },
   },
@@ -58,14 +51,12 @@ export default {
 </script>
 
 <style>
-
-
 .login-page {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh; 
+  height: 100vh;
 }
 
 
@@ -119,7 +110,7 @@ button[type="submit"]:focus {
 
 
 
-#tituloLogin{
+#tituloLogin {
   align-items: center;
   color: #FF5D8F;
   margin-top: 60%;
@@ -127,19 +118,19 @@ button[type="submit"]:focus {
 
 .login-page {
   display: flex;
-  flex-direction: column; /* Added this line */
+  flex-direction: column;
+  /* Added this line */
   justify-content: center;
   align-items: center;
   height: 100%;
 }
 
 
-#tituloLogin{
+#tituloLogin {
   align-items: center;
   color: #FF5D8F;
   margin-top: 00%;
   font-family: 'Work Sans', sans-serif;
 }
-
 </style>
 

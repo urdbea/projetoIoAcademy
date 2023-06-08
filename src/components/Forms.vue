@@ -52,7 +52,7 @@ export default {
     };
   },
   created() {
-    this.formSubmissions = JSON.parse(localStorage.getItem('formSubmissions')) || [];
+   // this.formSubmissions = JSON.parse(localStorage.getItem('formSubmissions')) || [];
 
     const utilizadorAtivo = localStorage.getItem('utilizadorAtivo');
     if (utilizadorAtivo) {
@@ -63,34 +63,48 @@ export default {
   },
   methods: {
     submitForm() {
-      const projectData = {
-        ideia: this.formData.ideaProjeto,
-        email: this.formData.email,
-        categorias: this.formData.categorias
-      };
+      const utilizadorAtivo = localStorage.getItem('utilizadorAtivo');
+  fetch('http://127.0.0.1:1337/api/users')
+    .then(response => response.json())
+    .then(users => {
+      const matchingUser = users.find(user => user.username === utilizadorAtivo);
 
-      fetch('http://127.0.0.1:1337/api/projetos', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ data: projectData })
-      })
-        .then(response => response.json())
-        .then(data => {
-          // Handle the API response if needed
-          console.log(data);
+      if (matchingUser) {
+        const projectData = {
+          ideia: this.formData.ideaProjeto,
+          email: this.formData.email,
+          categorias: this.formData.categorias,
+          users_permissions_user: matchingUser.id
+        };
+
+        fetch('http://127.0.0.1:1337/api/projetos', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ data: projectData })
         })
-        .catch(error => {
-          console.error(error);
-        });
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+          })
+          .catch(error => {
+            console.error(error);
+          });
 
-      // Reset form data
-      this.formData.name = '';
-      this.formData.email = '';
-      this.formData.ideaProjeto = '';
-      this.formData.categorias = [];
-    },
+        this.formData.name = '';
+        this.formData.email = '';
+        this.formData.ideaProjeto = '';
+        this.formData.categorias = [];
+      } else {
+        console.error(`User "${this.utilizadorAtivo}" not found.`);
+      }
+    })
+    .catch(error => {
+      console.error(error);
+    });
+},
+
 
     fetchCategorias() {
       fetch('http://127.0.0.1:1337/api/categorias')
