@@ -11,10 +11,10 @@
             <button class="delete-button" @click="deleteProject(index)">Delete</button>
           </div>
           <div class="card-body">
-            <p id="nomeUser"><strong>Name:</strong> {{ projeto.attributes.users_permissions_user.data.attributes.username
+            <p id="nomeUser"><strong>Nome:</strong> {{ projeto.attributes.users_permissions_user.data.attributes.username
             }}</p>
             <p id="emailUser"><strong>Email:</strong> {{ projeto.attributes.email }}</p>
-            <p id="ideiaProjeto"><strong>Ideia de Projeto:</strong> {{ projeto.attributes.ideia }}</p>
+            <p id="ideiaProjeto"><strong>Ideia:</strong> {{ projeto.attributes.ideia }}</p>
             <p><strong>Categorias:</strong></p>
             <ul>
               <li v-for="categoria in projeto.attributes.categorias.data" :key="categoria.id">

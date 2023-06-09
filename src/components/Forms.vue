@@ -7,7 +7,7 @@
       <p id="tituloForms" >Deixa aqui a tua sugestão!</p>
       <form @submit="submitForm">
         <div class="form-group">
-          <label for="name">Name:</label>
+          <label for="name">Nome:</label>
           <label id="name" class="form-control">{{ formData.name }}</label>
         </div>
         <div class="form-group">
@@ -15,11 +15,11 @@
           <input type="email" class="form-control" id="email" v-model="formData.email" required>
         </div>
         <div class="form-group">
-          <label for="text">Ideia de Projeto:</label>
+          <label for="text">Ideia:</label>
           <input type="text" class="form-control" id="ideia" v-model="formData.ideaProjeto" required>
         </div>
         <div class="form-group">
-          <label for="categoria">Categoria:</label>
+          <label for="categoria">Categorias:</label>
           <div class="checkbox-list">
             <label id="categoriasCheckbox" v-for="categoria in categorias" :key="categoria.id">
               <input type="checkbox" v-model="formData.categorias" :value="categoria.id">
