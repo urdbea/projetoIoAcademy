@@ -1,7 +1,10 @@
 <template>
+
+    <link href='https://fonts.googleapis.com/css?family=Varela Round' rel='stylesheet'>
+
   <div class="page-containerForms">
     <div class="container">
-      <h2>Deixa aqui a tua sugestão!</h2>
+      <p id="tituloForms" >Deixa aqui a tua sugestão!</p>
       <form @submit="submitForm">
         <div class="form-group">
           <label for="name">Name:</label>
@@ -16,9 +19,9 @@
           <input type="text" class="form-control" id="ideia" v-model="formData.ideaProjeto" required>
         </div>
         <div class="form-group">
-          <label for="categoria">Categoria</label>
+          <label for="categoria">Categoria:</label>
           <div class="checkbox-list">
-            <label v-for="categoria in categorias" :key="categoria.id">
+            <label id="categoriasCheckbox" v-for="categoria in categorias" :key="categoria.id">
               <input type="checkbox" v-model="formData.categorias" :value="categoria.id">
               {{ categoria.attributes.nome }}
             </label>
@@ -124,23 +127,42 @@ export default {
 .page-containerForms {
   margin: 0;
   padding: 0;
-  background-image: url("@/assets/images/fundoTudo.png");
+  background-image: url("@/assets/images/1.png");
   background-size: cover;
   background-repeat: no-repeat;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: Arial, sans-serif;
+  font-family: 'Varela Round';
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+  font-size: 13px;
+}
+body {
+  font-family: 'Varela Round';
 }
 
-h2 {
+#tituloForms {
   top: 0;
   left: 0;
   width: 100%;
   text-align: center;
   color: #FF5D8F;
   z-index: 1;
-  font-family: Arial, sans-serif;
+  font-family: 'Varela Round';
+  padding-top:10px;
+  padding-bottom: 10px;
+  font-size: 22px;
+  font-weight: bold;
 }
+
+#categoriasCheckbox{
+font-weight: normal;
+margin-right: 10px;
+display: block;
+flex-direction: column;
+}
+
+
 </style>

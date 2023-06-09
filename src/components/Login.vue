@@ -1,4 +1,5 @@
 <template>
+  <link href='https://fonts.googleapis.com/css?family=Varela Round' rel='stylesheet'>
   <div class="page-container">
    
       <LoginForm @login-success="$emit('login-success')"></LoginForm>
@@ -25,6 +26,7 @@
     height: 100vh;
     display: flex;
     justify-content: center;
+    font-family: 'Varela Round';
     align-items: center;
   }
   
@@ -32,5 +34,6 @@
     color: #ffffff;
     font-size: 24px;
     text-align: center;
+    font-family: 'Varela Round' !important;
   }
 </style>

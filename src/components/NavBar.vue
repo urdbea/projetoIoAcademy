@@ -1,13 +1,13 @@
 <template>
   <div class="navbar" :class="{ 'navbar-fixed': isNavbarFixed }">
     <div class="navbar-item" @click="navigate('home')" :class="{ active: isActive('home') }">
-      <font-awesome-icon class="icon" icon="home" />
+      <font-awesome-icon class="icon" icon="pencil-square" />
     </div>
     <div class="navbar-item" @click="navigate('feed')" :class="{ active: isActive('feed') }">
-      <font-awesome-icon class="icon" icon="info-circle" />
+      <font-awesome-icon class="icon" icon="comments" />
     </div>
     <div class="navbar-item" @click="navigate('feedUser')" :class="{ active: isActive('feedUser') }">
-      <font-awesome-icon class="icon" icon="envelope" />
+      <font-awesome-icon class="icon" icon="comment" />
     </div>
     <div v-if="isLoggedIn" class="navbar-item" @click="handleLogout">
       <font-awesome-icon class="icon" icon="sign-out-alt" />
@@ -68,7 +68,9 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #545454;
+  color: #FFFBF0;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
 }
 
 .navbar-item.active {
@@ -76,8 +78,8 @@ export default {
 }
 
 .navbar-item .icon {
-  font-size: 24px; /* Adjust the size as needed */
-  margin-bottom: 5px; /* Add some spacing below the icon */
+  font-size: 24px; 
+  margin-bottom: 5px; 
 }
 
 

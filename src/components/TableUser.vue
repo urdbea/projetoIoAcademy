@@ -1,14 +1,18 @@
 <template>
+  <link href='https://fonts.googleapis.com/css?family=Varela Round' rel='stylesheet'>
+ 
   <div id="page-containere">
     <p id="tituloTableUser">Os teus projetos sugeridos</p>
     <div class="submissions" id="cartoesSubms">
       <div class="card-grid">
         <div v-for="(projeto, index) in projetos" :key="index" class="card" id="cartoesForms">
           <div class="card-header">
-            Submission {{ index + 1 }}
+            Sugestão Nº {{ index + 1 }}
+            <button class="delete-button" @click="deleteProject(index)">Delete</button>
           </div>
           <div class="card-body">
-            <p id="nomeUser"><strong>Name:</strong> {{ projeto.attributes.users_permissions_user.data.attributes.username }}</p>
+            <p id="nomeUser"><strong>Name:</strong> {{ projeto.attributes.users_permissions_user.data.attributes.username
+            }}</p>
             <p id="emailUser"><strong>Email:</strong> {{ projeto.attributes.email }}</p>
             <p id="ideiaProjeto"><strong>Ideia de Projeto:</strong> {{ projeto.attributes.ideia }}</p>
             <p><strong>Categorias:</strong></p>
@@ -29,10 +33,10 @@ export default {
   data() {
     return {
       activeUser: '',
-      projetos:[]
+      projetos: []
     };
   },
-   created() {
+  created() {
     this.activeUser = localStorage.getItem('utilizadorAtivo');
     this.fetchData();
   },
@@ -47,9 +51,24 @@ export default {
           console.error(error);
         });
     },
+    deleteProject(index) {
+      const projectId = this.projetos[index].id;
+      const deleteURL = `http://127.0.0.1:1337/api/projetos/${projectId}`;
+
+      fetch(deleteURL, {
+        method: 'DELETE',
+      })
+        .then(response => response.json())
+        .then(() => {
+          this.projetos.splice(index, 1);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
     mounted() {
-    this.fetchData();
-  }
+      this.fetchData();
+    }
   }
 }
 </script>
@@ -59,19 +78,18 @@ export default {
 #cartoesSubms {
   font-size: 10px;
   height: 100vh;
-  /* Set the height to 100% of the viewport height */
   width: 100vw;
-  /* Set the width to 100% of the viewport width */
-  font-family: "Roboto", Arial, sans-serif;
+  font-family: 'Varela Round' !important;
 }
 
-#cartoesForms{
+#cartoesForms {
   background-color: #ffffff;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 10px;
   margin-bottom: 20px;
-  border: 2px solid #FF5D8F; 
+  border: 2px solid #FF5D8F;
+  font-family: 'Varela Round' !important;
 }
 
 
@@ -85,6 +103,7 @@ export default {
 
 #page-containere {
   background-color: #FFFBF0;
+  
 }
 
 
@@ -96,10 +115,10 @@ export default {
 
   text-align: center;
   color: #FF5D8F;
-  font-size: larger;
   font-weight: bold;
-  font-family: 'Work Sans', sans-serif;
+  font-family: 'Varela Round';
   padding-top: 10%;
+  font-size: x-large;
 }
 
 
@@ -107,21 +126,43 @@ export default {
 .card-grid {
   display: flex;
   flex-direction: column;
-  /* Change to column layout */
   padding: 20px;
   margin: 0 auto;
   max-width: 800px;
   box-sizing: border-box;
   grid-gap: 20px;
-
+  padding-bottom: 80px !important;
   background-color: #FFFBF0;
-
+  font-family: 'Varela Round' !important;
 }
 
 .card {
-  /* Styles for your card */
+  background-color: #FFFBF0 !important;
   margin-bottom: 20px;
-  /* Add margin-bottom to create space between cards */
+}
+
+.delete-button {
+  background-color: transparent;
+  color: #FF5D8F;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  float: right;
+  margin-right: 10px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  padding: 10px;
+  background-color: #FFFBF0;
+  border-bottom: 2px solid #FF5D8F;
+}
+
+body {
+  font-family: 'Varela Round';
 }
 </style>
   
